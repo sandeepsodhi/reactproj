@@ -9,11 +9,13 @@ class App extends Component{
       return(
         <div className="App" >
           <h1>HELLO!! </h1>
-          <Person />
+          <Person name='Sandeep' age= '26'/>
+          <Person name='Singh' age='25'>Hobbies:Bhangra</Person>
+          <Person name='Sodhi' age='20'/>
         </div>
       );
     }
   //retur n React.createElement("div","",React.createElement("h1",{className:'App'},"Create New Element within h1!!!"));
 }
 
-export default App;
+export default App; 
