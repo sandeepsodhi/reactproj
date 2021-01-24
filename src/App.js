@@ -4,18 +4,57 @@ import Person from './Person/Person'; //when importing this person we must make 
 
 //we can have only one root element in a componnet
 
-class App extends Component{ 
+class App extends Component{  
+
+  //props are passed from outside
+  //states are managed from inside a component, state is an reserved word for javascript object
+  
+  state = {
+    persons: [
+      { name: 'Max', age: 20 },
+      { name: 'Mannu', age: 21 },
+      { name: 'Stephanie', age: 22 }
+    ],
+    otherState: 'some other value'
+  }
+  
+  //name it like handler as good practice to show that it not a active function but an event handle
+  swtichNameHandler = () => {
+    console.log('was clicked');
+    //DON'T DO THIS this.state.persons[0].name = 'Max'; //never try mutate object like this.
+    //we have a set state method in component class. Set state merges with its existing state 
+
+    this.setState({
+        persons: [
+          { name : 'Maximilian', age : 28 },
+          { name : 'Mannu', age : 21 },
+          { name : 'Stephanie', age: 23 }
+        ]
+    })
+
+
+  }
+
   render() {
       return(
         <div className="App" >
           <h1>HELLO!! </h1>
-          <Person name='Sandeep' age= '26'/>
-          <Person name='Singh' age='25'>Hobbies:Bhangra</Person>
-          <Person name='Sodhi' age='20'/>
+          {/* if we are specifying event onClick event as with parenthis in function name then it will immediately call the function as soon as the react loads the dom {this.swtichNameHandler()} */}
+           <button onClick={this.swtichNameHandler}>Switch Name</button>
+          <Person 
+            name={this.state.persons[0].name} 
+            age = {this.state.persons[0].age}/>
+          <Person 
+            name={this.state.persons[1].name} 
+            age={this.state.persons[1].age}
+            click = {this.swtichNameHandler} >Hobbies:Bhangra</Person>
+          <Person 
+            name={this.state.persons[2].name} 
+            age={this.state.persons[2].age}/>
         </div>
       );
     }
   //retur n React.createElement("div","",React.createElement("h1",{className:'App'},"Create New Element within h1!!!"));
 }
 
-export default App; 
+export default App;  
