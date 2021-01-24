@@ -19,20 +19,18 @@ class App extends Component{
   }
   
   //name it like handler as good practice to show that it not a active function but an event handle
-  swtichNameHandler = () => {
+  swtichNameHandler = (newName) => {
     console.log('was clicked');
     //DON'T DO THIS this.state.persons[0].name = 'Max'; //never try mutate object like this.
     //we have a set state method in component class. Set state merges with its existing state 
 
     this.setState({
         persons: [
-          { name : 'Maximilian', age : 28 },
+          { name : newName, age : 28 },
           { name : 'Mannu', age : 21 },
           { name : 'Stephanie', age: 23 }
         ]
     })
-
-
   }
 
   render() {
@@ -40,14 +38,15 @@ class App extends Component{
         <div className="App" >
           <h1>HELLO!! </h1>
           {/* if we are specifying event onClick event as with parenthis in function name then it will immediately call the function as soon as the react loads the dom {this.swtichNameHandler()} */}
-           <button onClick={this.swtichNameHandler}>Switch Name</button>
-          <Person 
+          {/* if we are defining a method with arrow function approach, then it will automatically add a return keyword implicitly. Here this satement and change made is contradicting with above statement, but here we are not directly calling the method on dom load. But we are calling it with onClick event. Also this statement is not recommended as it is not that much efficient as dom has to be re-rendered, do it only if required in some scenarios. Use the below bind statement instead. */}
+           <button onClick={() => this.swtichNameHandler('Maximiam!!')}>Switch Name</button>
+           <Person 
             name={this.state.persons[0].name} 
             age = {this.state.persons[0].age}/>
           <Person 
             name={this.state.persons[1].name} 
             age={this.state.persons[1].age}
-            click = {this.swtichNameHandler} >Hobbies:Bhangra</Person>
+            click = {this.swtichNameHandler.bind(this,'Max!')} >Hobbies:Bhangra</Person>
           <Person 
             name={this.state.persons[2].name} 
             age={this.state.persons[2].age}/>
