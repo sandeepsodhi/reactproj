@@ -20,10 +20,9 @@ class App extends Component{
   
   //name it like handler as good practice to show that it not a active function but an event handle
   swtichNameHandler = (newName) => {
-    console.log('was clicked');
+
     //DON'T DO THIS this.state.persons[0].name = 'Max'; //never try mutate object like this.
     //we have a set state method in component class. Set state merges with its existing state 
-
     this.setState({
         persons: [
           { name : newName, age : 28 },
@@ -32,6 +31,20 @@ class App extends Component{
         ]
     })
   }
+
+  nameChangedHandler = (event) => {
+
+    this.setState({
+      persons: [
+        { name: 'Max', age: 20 },
+        { name: event.target.value, age: 21 },
+        { name: 'Stephanie', age: 22 }
+      ]
+    })
+
+  }
+
+
 
   render() {
       return(
@@ -46,7 +59,9 @@ class App extends Component{
           <Person 
             name={this.state.persons[1].name} 
             age={this.state.persons[1].age}
-            click = {this.swtichNameHandler.bind(this,'Max!')} >Hobbies:Bhangra</Person>
+            click = {this.swtichNameHandler.bind(this,'Max!')} 
+            changed = {this.nameChangedHandler}
+            >Hobbies:Bhangra</Person>
           <Person 
             name={this.state.persons[2].name} 
             age={this.state.persons[2].age}/>
