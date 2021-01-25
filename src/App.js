@@ -15,7 +15,8 @@ class App extends Component{
       { name: 'Mannu', age: 21 },
       { name: 'Stephanie', age: 22 }
     ],
-    otherState: 'some other value'
+    otherState: 'some other value',
+    showPersons: false
   }
   
   //name it like handler as good practice to show that it not a active function but an event handle
@@ -33,7 +34,6 @@ class App extends Component{
   }
 
   nameChangedHandler = (event) => {
-
     this.setState({
       persons: [
         { name: 'Max', age: 20 },
@@ -41,10 +41,15 @@ class App extends Component{
         { name: 'Stephanie', age: 22 }
       ]
     })
-
   }
 
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
 
+    this.setState({
+      showPersons : !doesShow
+    })
+  }
 
   render() {
 
@@ -56,6 +61,26 @@ class App extends Component{
         cursor: 'pointer'
       };
 
+      let person = null;
+      if(this.state.showPersons){
+        person = (
+          <div>
+            <Person 
+              name={this.state.persons[0].name} 
+              age = {this.state.persons[0].age}/>
+            <Person 
+              name={this.state.persons[1].name} 
+              age={this.state.persons[1].age}
+              click = {this.swtichNameHandler.bind(this,'Max!')} 
+              changed = {this.nameChangedHandler}
+              >Hobbies:Bhangra</Person>
+            <Person 
+              name={this.state.persons[2].name} 
+              age={this.state.persons[2].age}/>
+          </div> 
+        );
+      }
+
       return(
         <div className="App" >
           <h1>HELLO!! </h1>
@@ -63,19 +88,12 @@ class App extends Component{
           {/* if we are defining a method with arrow function approach, then it will automatically add a return keyword implicitly. Here this satement and change made is contradicting with above statement, but here we are not directly calling the method on dom load. But we are calling it with onClick event. Also this statement is not recommended as it is not that much efficient as dom has to be re-rendered, do it only if required in some scenarios. Use the below bind statement instead. */}
            <button
            style={style} 
-           onClick={() => this.swtichNameHandler('Maximiam!!')}>Switch Name</button>
-           <Person 
-            name={this.state.persons[0].name} 
-            age = {this.state.persons[0].age}/>
-          <Person 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age}
-            click = {this.swtichNameHandler.bind(this,'Max!')} 
-            changed = {this.nameChangedHandler}
-            >Hobbies:Bhangra</Person>
-          <Person 
-            name={this.state.persons[2].name} 
-            age={this.state.persons[2].age}/>
+            //onClick={() => this.swtichNameHandler('Maximiam!!')}
+           onClick = {this.togglePersonsHandler}
+           >Switch Name</button>
+            {/* { this.state.showPersons === true?  */}
+            {person}
+              {/* // : null } */}
         </div>
       );
     }
