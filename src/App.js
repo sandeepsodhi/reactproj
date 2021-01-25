@@ -47,12 +47,23 @@ class App extends Component{
 
 
   render() {
+
+      const style = {
+        backgroundColor: 'white',
+        font: 'inherit',
+        border : '1px solid blue',
+        padding: '8px',
+        cursor: 'pointer'
+      };
+
       return(
         <div className="App" >
           <h1>HELLO!! </h1>
           {/* if we are specifying event onClick event as with parenthis in function name then it will immediately call the function as soon as the react loads the dom {this.swtichNameHandler()} */}
           {/* if we are defining a method with arrow function approach, then it will automatically add a return keyword implicitly. Here this satement and change made is contradicting with above statement, but here we are not directly calling the method on dom load. But we are calling it with onClick event. Also this statement is not recommended as it is not that much efficient as dom has to be re-rendered, do it only if required in some scenarios. Use the below bind statement instead. */}
-           <button onClick={() => this.swtichNameHandler('Maximiam!!')}>Switch Name</button>
+           <button
+           style={style} 
+           onClick={() => this.swtichNameHandler('Maximiam!!')}>Switch Name</button>
            <Person 
             name={this.state.persons[0].name} 
             age = {this.state.persons[0].age}/>
