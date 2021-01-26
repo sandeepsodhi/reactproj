@@ -11,9 +11,9 @@ class App extends Component{
   
   state = {
     persons: [
-      { name: 'Max', age: 20 },
-      { name: 'Mannu', age: 21 },
-      { name: 'Stephanie', age: 22 }
+      { id : '1', name: 'Max', age: 20 },
+      { id : '2', name: 'Mannu', age: 21 },
+      { id : '3', name: 'Stephanie', age: 22 }
     ],
     otherState: 'some other value',
     showPersons: false
@@ -33,14 +33,42 @@ class App extends Component{
     })
   }
 
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: 'Max', age: 20 },
-        { name: event.target.value, age: 21 },
-        { name: 'Stephanie', age: 22 }
-      ]
-    })
+  //version 2
+  nameChangedHandler = (event, id) => {
+
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id
+    });
+
+    const person = { ...this.state.persons[personIndex] }; //or Object,assign({}, this.state.persons[personIndex])
+    
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({persons: persons})
+  }
+
+  // version 1
+  // nameChangedHandler = (event) => {
+  //   this.setState({
+  //     persons: [
+  //       { name: 'Max', age: 20 },
+  //       { name: event.target.value, age: 21 },
+  //       { name: 'Stephanie', age: 22 }
+  //     ]
+  //   })
+  // }
+
+  deletePersonHandler = (personIndex) => {
+
+    // // version1
+    // const person  = this.state.persons;  //since arrays are reference type, we are just copying the reference to old array, this might cause unexpected results and it is not a good approach, it is better to create an array by calling splice method with no parameter
+    
+    const person = this.state.persons.slice(); //or  = [...this.state.persons]; //using spread js operator 
+    person.splice(personIndex, 1);
+    this.setState({persons: person})
   }
 
   togglePersonsHandler = () => {
@@ -65,7 +93,30 @@ class App extends Component{
       if(this.state.showPersons){
         person = (
           <div>
-            <Person 
+
+            {/* version 3 */}
+            {
+              this.state.persons.map((person,index) => {
+                return <Person 
+                click = {() => this.deletePersonHandler(index)}
+                name={person.name} 
+                age={person.age}
+                key={person.id}
+                changed={(event) => this.nameChangedHandler(event, person.id)}
+                /> 
+              })
+            } 
+
+            {/* version2 : creating an array of person object and printing it. */}
+            {/* {this.state.persons.map(person => {
+              return <Person 
+              name={person.name} 
+              age={person.age}
+              />  //person.name + " "
+            })} */}
+
+            {/* version 1 */}
+            {/* <Person 
               name={this.state.persons[0].name} 
               age = {this.state.persons[0].age}/>
             <Person 
@@ -76,7 +127,7 @@ class App extends Component{
               >Hobbies:Bhangra</Person>
             <Person 
               name={this.state.persons[2].name} 
-              age={this.state.persons[2].age}/>
+              age={this.state.persons[2].age}/> */}
           </div> 
         );
       }
@@ -90,7 +141,7 @@ class App extends Component{
            style={style} 
             //onClick={() => this.swtichNameHandler('Maximiam!!')}
            onClick = {this.togglePersonsHandler}
-           >Switch Name</button>
+           >Toggle Name</button>
             {/* { this.state.showPersons === true?  */}
             {person}
               {/* // : null } */}
