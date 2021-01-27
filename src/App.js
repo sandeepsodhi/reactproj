@@ -82,7 +82,8 @@ class App extends Component{
   render() {
 
       const style = {
-        backgroundColor: 'white',
+        color: 'white',
+        backgroundColor: 'green',
         font: 'inherit',
         border : '1px solid blue',
         padding: '8px',
@@ -105,7 +106,7 @@ class App extends Component{
                 changed={(event) => this.nameChangedHandler(event, person.id)}
                 /> 
               })
-            } 
+            }
 
             {/* version2 : creating an array of person object and printing it. */}
             {/* {this.state.persons.map(person => {
@@ -130,11 +131,24 @@ class App extends Component{
               age={this.state.persons[2].age}/> */}
           </div> 
         );
+
+        style.backgroundColor = 'red';
+      }
+
+      const classes = [];
+
+      if(this.state.persons.length <= 2){
+        classes.push('red');
+      }
+      if(this.state.persons.length<=1){
+        classes.push('bold');
       }
 
       return(
         <div className="App" >
           <h1>HELLO!! </h1>
+          <p className={classes.join(' ')}> Testing classes</p>
+
           {/* if we are specifying event onClick event as with parenthis in function name then it will immediately call the function as soon as the react loads the dom {this.swtichNameHandler()} */}
           {/* if we are defining a method with arrow function approach, then it will automatically add a return keyword implicitly. Here this satement and change made is contradicting with above statement, but here we are not directly calling the method on dom load. But we are calling it with onClick event. Also this statement is not recommended as it is not that much efficient as dom has to be re-rendered, do it only if required in some scenarios. Use the below bind statement instead. */}
            <button
