@@ -1,6 +1,8 @@
 import './App.css';
+import Radium from 'radium';
 import React, { Component } from 'react';
 import Person from './Person/Person'; //when importing this person we must make sure that we are importing with capital letter, reason for this becasue there are reserved words which we can not keep like div/class etc.
+
 
 //we can have only one root element in a componnet
 
@@ -87,7 +89,11 @@ class App extends Component{
         font: 'inherit',
         border : '1px solid blue',
         padding: '8px',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        ':hover' : {
+          backgroundColor : 'lightgreen',
+          color: 'black'
+        }  //for using pseudoCode properties we are using radium, and for declaring them in javascript we specify them with single quotes as they are not valid properties in js.
       };
 
       let person = null;
@@ -133,6 +139,10 @@ class App extends Component{
         );
 
         style.backgroundColor = 'red';
+        style[':hover'] = {
+          backgroundColor : 'salmon',
+          color: 'black'
+        }
       }
 
       const classes = [];
@@ -165,4 +175,4 @@ class App extends Component{
   //retur n React.createElement("div","",React.createElement("h1",{className:'App'},"Create New Element within h1!!!"));
 }
 
-export default App;  
+export default Radium(App);  

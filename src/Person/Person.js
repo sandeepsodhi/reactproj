@@ -1,5 +1,6 @@
 //import React from 'react';
 
+import Radium from 'radium';
 import './Person.css'; //must import css file with extension only can be omitted of javascript
 
 //following es6 syntax to create a function
@@ -20,4 +21,4 @@ const person = (props) => {
 
 };
 
-export default person;
+export default Radium(person);
