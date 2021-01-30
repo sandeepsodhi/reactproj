@@ -1,5 +1,5 @@
 import './App.css';
-import Radium from 'radium';
+import Radium, { StyleRoot } from 'radium';
 import React, { Component } from 'react';
 import Person from './Person/Person'; //when importing this person we must make sure that we are importing with capital letter, reason for this becasue there are reserved words which we can not keep like div/class etc.
 
@@ -155,6 +155,7 @@ class App extends Component{
       }
 
       return(
+        <StyleRoot>
         <div className="App" >
           <h1>HELLO!! </h1>
           <p className={classes.join(' ')}> Testing classes</p>
@@ -170,6 +171,7 @@ class App extends Component{
             {person}
               {/* // : null } */}
         </div>
+        </StyleRoot>
       );
     }
   //retur n React.createElement("div","",React.createElement("h1",{className:'App'},"Create New Element within h1!!!"));
