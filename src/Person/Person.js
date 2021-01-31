@@ -7,6 +7,12 @@ import './Person.css'; //must import css file with extension only can be omitted
 //prop is the default parameter which have all the parameter in it as property from component creation
 const person = (props) => {
 
+    const rnd = Math.random();
+
+    if(rnd > 0.7){
+        throw new Error('Something went wrong.')
+    }
+
     // const style = {
     //     '@media(min-width : 500px)' : {
     //         width : '450px'

@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 import Person from './Person/Person'; //when importing this person we must make sure that we are importing with capital letter, reason for this becasue there are reserved words which we can not keep like div/class etc.
-
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 //we can have only one root element in a componnet
 
@@ -99,13 +99,14 @@ class App extends Component{
             {/* version 3 */}
             {
               this.state.persons.map((person,index) => {
-                return <Person 
-                click = {() => this.deletePersonHandler(index)}
-                name={person.name} 
-                age={person.age}
-                key={person.id}
-                changed={(event) => this.nameChangedHandler(event, person.id)}
-                /> 
+                return <ErrorBoundary key={person.id} >
+                <Person 
+                  click = {() => this.deletePersonHandler(index)}
+                  name={person.name} 
+                  age={person.age}
+                  changed={(event) => this.nameChangedHandler(event, person.id)}
+                />
+                </ErrorBoundary> 
               })
             }
 
