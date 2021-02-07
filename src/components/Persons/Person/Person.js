@@ -4,7 +4,20 @@ import './Person.css';
 
 
 class Person extends Component{
-    render(){
+    constructor( props ) {
+        super( props );
+        console.log( '[Person.js] Inside Constructor', props );
+    }
+
+    componentWillMount () {
+        console.log( '[Person.js] Inside componentWillMount()' );
+    }
+
+    componentDidMount () {
+        console.log( '[Person.js] Inside componentDidMount()' );
+    }
+    render(){ 
+        console.log( '[Person.js] Inside render()' );
         return (
             <div className="Person"> 
                 <p onClick={this.props.click}> I am a {this.props.name}, and I am  {this.props.age} old</p>
