@@ -1,8 +1,8 @@
-//import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import './Person.css'; 
 
-
+import PropTypes from 'prop-types';
+ 
 class Person extends Component{
     constructor( props ) {
         super( props );
@@ -15,19 +15,34 @@ class Person extends Component{
 
     componentDidMount () {
         console.log( '[Person.js] Inside componentDidMount()' );
+        if(this.props.position === 0){
+            this.inputElement.focus();
+        }
     }
+
     render(){ 
         console.log( '[Person.js] Inside render()' );
         return (
             <div className="Person"> 
                 <p onClick={this.props.click}> I am a {this.props.name}, and I am  {this.props.age} old</p>
                 <p>{this.props.children}</p>
-                <input type="text" onChange={this.props.changed} value = {this.props.name} /> 
+                <input 
+                    ref = { (inp) => { this.inputElement = inp }  }
+                    type="text" 
+                    onChange={this.props.changed} 
+                    value = {this.props.name} /> 
             </div>
         );
     }
-
 }
+
+Person.propTypes = {
+    click : PropTypes.func,
+    name : PropTypes.string, 
+    age : PropTypes.number,
+    changed : PropTypes.func
+};
+
 
 export default Person;
 

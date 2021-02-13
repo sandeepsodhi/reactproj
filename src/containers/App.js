@@ -15,7 +15,8 @@ class App extends PureComponent{
           { id : '3', name: 'Stephanie', age: 22 }
         ],
         otherState: 'some other value',
-        showPersons: false
+        showPersons: false,
+        toogleClicked : 0
       }
   }
 
@@ -87,8 +88,12 @@ class App extends PureComponent{
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
 
-    this.setState({
-      showPersons : !doesShow
+    this.setState( (prevState, props) =>  {
+      return{
+        showPersons : !doesShow,
+        toogleClicked :prevState.toogleClicked + 1
+        //toogleClick: this.state.tooglleClick + 1 is a async function without prevState and Prop parameter which is not a good approach.
+      }
     })
   }
 
