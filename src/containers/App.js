@@ -20,6 +20,7 @@ class App extends PureComponent{
       }
   }
 
+  //obsolete - discourged to use
   componentWillMount() {
     console.log('[App.js] Inside componentWillMount()');
   }
@@ -34,6 +35,7 @@ class App extends PureComponent{
   //     nextState.showPersons !== this.state.showPersons;
   // }
 
+  //obsolete - discourged to use
   componentWillUpdate ( nextProps, nextState ) {
     console.log( '[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState );
   }
