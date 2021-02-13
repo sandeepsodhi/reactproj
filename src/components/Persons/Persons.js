@@ -7,13 +7,15 @@ class Persons extends PureComponent {
 
     constructor(props){
         super(props); //call to super contructor is required if we implement a contructor 
-        console.log('[Persons.js] Inside Contructor', props )
+        console.log('[Persons.js] Inside Contructor', props );
+        this.lastPersonRef = React.createRef();
     }
     componentWillMount(){
         console.log('[Persons.js] Inside ComponentWillMount()');
     }
     componentDidMount(){
         console.log('[Persons.js] Inside ComponentDidMount()');
+        this.lastPersonRef.current.focus();
     }
     componentWillReceiveProps(nextProps){
         console.log('[Update Persons.js] Inside componentWillReceiveProps()', nextProps);
@@ -41,6 +43,7 @@ class Persons extends PureComponent {
             name={person.name} 
             position = { index }
             age={person.age}
+            ref = { this.lastPersonRef }
             key={person.id}
             changed={(event) => this.props.changed(event, person.id)} />
         })
